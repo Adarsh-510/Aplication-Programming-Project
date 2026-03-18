@@ -1,3 +1,14 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.stickyHeader{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
 #menuContainer{
   margin: auto;
   display: flex;
@@ -18,9 +29,11 @@
   border-radius: 25px;
   transform-origin: 50% 50%;
   transition: 0.25s ease;
+  filter: brightness(0.9);
 }
 
 .gameImage:hover{
-  filter: blur(3px);
   transform: scale(1.15); 
+  box-shadow: 5px 5px 25px black, -5px -5px 25px black;
+  filter: brightness(1);
 }
