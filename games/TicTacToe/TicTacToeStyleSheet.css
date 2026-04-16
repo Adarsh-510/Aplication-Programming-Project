@@ -1,0 +1,28 @@
+.gameContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 60%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+}
+
+.cell{
+  background-color: #84a3bb;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell:hover{
+  transform: scale(1.05);
+  background-color: #6c8da6;
+  border-radius: 15px;
+}
+
+#infoLine{
+  padding-bottom: 75px;
+  color: #3c344f;
+}
