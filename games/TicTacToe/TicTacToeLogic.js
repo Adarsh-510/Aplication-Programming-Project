@@ -12,8 +12,9 @@ function makeMove(cell) {
   document.getElementById(cell).innerHTML = currentMove;
   board[cell[4]][cell[5]] = (currentMove == "x") ? -1 : 1;
   currentMove = (currentMove == "x") ? "o" : "x";
-
-  if (updateInfoLine(checkBoard()) && currentMove == "x") makeRandomMove();
+  if (updateInfoLine(checkBoard())) {
+    if (currentMove == "x") makeRandomMove();
+  } else currentMove = "MEOWMEOWMEOW";
 }
 
 function makeRandomMove() {
