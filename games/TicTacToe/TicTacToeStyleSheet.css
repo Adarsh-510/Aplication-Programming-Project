@@ -4,7 +4,6 @@
   gap: 8px;
   width: 60%;
   max-width: 600px;
-  aspect-ratio: 1 / 1;
 }
 
 .cell{
@@ -14,12 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.cell:hover{
-  transform: scale(1.05);
-  background-color: #6c8da6;
-  border-radius: 15px;
+  aspect-ratio: 1 / 1;
 }
 
 #infoLine{

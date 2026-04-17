@@ -72,9 +72,22 @@ function updateInfoLine(gameState) {
 }
 
 document.querySelectorAll(".cell").forEach(cell => {
-    cell.onclick = () => {
-        if (validCells.includes(cell.id) && currentMove == "o") {
-            makeMove(cell.id);
-        }
-    };
+  cell.onclick = () => {
+    if (validCells.includes(cell.id) && currentMove == "o") {
+      makeMove(cell.id);
+    }
+  };
+  
+  cell.onmouseover = () => {
+    if (validCells.includes(cell.id) && currentMove != "MEOWMEOWMEOW") {
+      cell.style.backgroundColor = "#6c8da6";
+      cell.style.transform = "scale(1.05)";
+      cell.style.borderRadius = "15px";
+    }
+  }
+  cell.onmouseout = () => {
+    cell.style.backgroundColor = "#84a3bb";
+    cell.style.transform = "scale(1)";
+    cell.style.borderRadius = "5px";
+  }
 });
