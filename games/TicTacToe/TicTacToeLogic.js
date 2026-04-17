@@ -1,29 +1,56 @@
-const moves = ["x", "o"];
-const startMove = moves[Math.floor(Math.random() * 2)];
-let currentMove = startMove;
-let board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-let validCells = ["cell00", "cell01", "cell02", "cell10", "cell11", "cell12", "cell20", "cell21", "cell22"];
+let score = 0;
+let startMove, currentMove, board, validCells;
+setBoard();
 
-updateInfoLine(0);
-if (currentMove == "x") makeRandomMove();
+function setBoard() {
+  document.getElementById('gameEndOverlay').style.display = 'none';
+
+  board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  validCells = ["cell00", "cell01", "cell02", "cell10", "cell11", "cell12", "cell20", "cell21", "cell22"];
+  document.querySelectorAll(".cell").forEach(cell => {
+    cell.innerHTML = "";
+    cell.style.backgroundColor = "#96B1C5";
+  });
+
+  startMove = (Math.floor(Math.random() * 2) == 0) ? "x" : "o";
+  currentMove = startMove;
+  document.getElementById("infoLine").innerHTML = (currentMove == "o") ? "CURRENT TURN: PLAYER" : "CURRENT TURN: COMPUTER";
+
+  if (currentMove == "x") makeRandomMove();
+}
 
 function makeMove(cell) {
   validCells.splice(validCells.indexOf(cell), 1);
-  document.getElementById(cell).innerHTML = currentMove;
+  document.getElementById(cell).innerHTML = (currentMove == "x") ? '<img src="./icons/computerMark.png">' : '<img src="./icons/playerMark.png">';
   board[cell[4]][cell[5]] = (currentMove == "x") ? -1 : 1;
   currentMove = (currentMove == "x") ? "o" : "x";
-  if (updateInfoLine(checkBoard())) {
-    if (currentMove == "x") makeRandomMove();
-  } else currentMove = "MEOWMEOWMEOW";
+  document.getElementById("infoLine").innerHTML = (currentMove == "o") ? "CURRENT TURN: PLAYER" : "CURRENT TURN: COMPUTER";
+  document.getElementById(cell).style.backgroundColor = "#7B9DB7";
+
+  nextTurnLogic();
+}
+
+function nextTurnLogic() {
+  let gameState = checkBoard();
+
+  if (gameState == 1 || gameState == 2 || gameState == 3) endGame(gameState);
+  else if (currentMove == "x")
+    if (typeof gameState == 'string' && Math.floor(Math.random() * 100) < 75)
+      setTimeout(() => {
+        makeMove(gameState);
+      }, 1500 + Math.floor(Math.random() * 501) - 250);
+    else makeRandomMove();
 }
 
 function makeRandomMove() {
   setTimeout(function() {
     makeMove(validCells[Math.floor(Math.random() * validCells.length)]);
-  }, 1000);
+  }, 1250 + Math.floor(Math.random() * 501) - 250);
 }
 
 function checkBoard() {
+  let gameState = 0;
+
   let rowSum;
   for (let i = 0; i < 3; i++){
     rowSum = 0;
@@ -32,6 +59,10 @@ function checkBoard() {
     }
     if (rowSum == 3) return 1;
     if (rowSum == -3) return 2;
+    if (rowSum == 2 || rowSum == -2)
+      for (let j = 0; j < 3; j++)
+        if (board[i][j] == 0) 
+          gameState = "cell" + i.toString() + j.toString();
   }
 
   let colSum;
@@ -42,6 +73,10 @@ function checkBoard() {
     }
     if (colSum == 3) return 1;
     if (colSum == -3) return 2;
+    if (colSum == 2 || colSum == -2)
+      for (let j = 0; j < 3; j++)
+        if (board[j][i] == 0)
+          gameState = "cell" + j.toString() + i.toString();
   }
 
   let leftDiagonalSum = 0, rightDiagonalSum = 0;
@@ -51,24 +86,32 @@ function checkBoard() {
   }
   if (leftDiagonalSum == 3 || rightDiagonalSum == 3) return 1;
   if (leftDiagonalSum == -3 || rightDiagonalSum == -3) return 2;
+  if (leftDiagonalSum == -2 || leftDiagonalSum == 2)
+    for (let i = 0; i < 3; i++)
+      if (board[i][i] == 0)
+        gameState = "cell" + i.toString() + i.toString();
+  if (rightDiagonalSum == -2 || rightDiagonalSum == 2)
+    for (let i = 0; i < 3; i++)
+      if (board[i][2 - i] == 0)
+        gameState = "cell" + i.toString() + (2 - i).toString();
 
-  if (validCells.length == 0) return 3;
+  if (validCells.length == 0) gameState = 3;
 
-  return 0;
+  return gameState;
 }
 
-function updateInfoLine(gameState) {
-  if (gameState == 0) {
-    document.getElementById("infoLine").innerHTML = (currentMove == "o") ? "CURRENT TURN: PLAYER" : "CURRENT TURN: COMPUTER";
-    return true;
-  } else if (gameState == 1) { 
-    document.getElementById("infoLine").innerHTML = "PLAYER WON!";
-  } else if (gameState == 2) { 
-    document.getElementById("infoLine").innerHTML = "COMPUTER WON!";
-  } else if (gameState == 3) { 
-    document.getElementById("infoLine").innerHTML = "IT'S A TIE!";
-  }
-  return false;
+function endGame(gameState) {
+  currentMove = "MEOWMEOWMEOW";
+  document.getElementById("infoLine").innerHTML = "";
+  var scoreThisGame = 0;
+  if (gameState == 1) scoreThisGame += 50;
+  if (startMove == "x" && gameState != 2) scoreThisGame += 25;
+  if (scoreThisGame != 0) scoreThisGame += Math.floor(Math.random() * 11) - 5;
+
+  document.getElementById('gameEndOverlay').style.display = 'flex';
+
+  score += scoreThisGame;
+  document.getElementById("score").innerHTML = "SCORE: " + (score);
 }
 
 document.querySelectorAll(".cell").forEach(cell => {
@@ -79,15 +122,15 @@ document.querySelectorAll(".cell").forEach(cell => {
   };
   
   cell.onmouseover = () => {
-    if (validCells.includes(cell.id) && currentMove != "MEOWMEOWMEOW") {
-      cell.style.backgroundColor = "#6c8da6";
+    if (validCells.includes(cell.id) && currentMove == "o") {
       cell.style.transform = "scale(1.05)";
       cell.style.borderRadius = "15px";
     }
   }
   cell.onmouseout = () => {
-    cell.style.backgroundColor = "#84a3bb";
     cell.style.transform = "scale(1)";
     cell.style.borderRadius = "5px";
   }
 });
+
+document.getElementById('playAgainButton').onclick = () => setBoard();

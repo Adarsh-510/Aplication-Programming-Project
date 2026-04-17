@@ -1,0 +1,20 @@
+.gameContainer {
+  background-color: #96B1C5;
+  aspect-ratio: 2 / 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 80%;
+  max-width: 900px;
+  border-radius: 20px;
+}
+
+.options {
+  width: 20%;
+  transition: transform 0.3s ease;
+}
+
+.options:hover{
+  transform: scale(1.25);
+  cursor: pointer;
+}

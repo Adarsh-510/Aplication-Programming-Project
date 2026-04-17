@@ -17,20 +17,31 @@
     </nav>
 
     <h1>TIC-TAC-TOE</h1>
-    <p>This is a very small and great discription about tictactoe</p>
+    <p id="score">SCORE: 0</p>
   </header>
 
-  <main class="gameContainer">
-   <div class="cell" id="cell00"></div>
-   <div class="cell" id="cell01"></div>
-   <div class="cell" id="cell02"></div>
-   <div class="cell" id="cell10"></div>
-   <div class="cell" id="cell11"></div>
-   <div class="cell" id="cell12"></div>
-   <div class="cell" id="cell20"></div>
-   <div class="cell" id="cell21"></div>
-   <div class="cell" id="cell22"></div>
-  </main>
+  <div id="gameEndOverlay">
+    <div class="overlayBackground"></div>
+    <div class="gameOutcome">
+      <h2>PLAYER WINS!!</h2>
+      <div>
+        <div class="overlayButton" id="playAgainButton">Play again</div>
+        <a class="overlayButton" href="../../index.html">Return to home</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="gameContainer">
+    <div class="cell" id="cell00"></div>
+    <div class="cell" id="cell01"></div>
+    <div class="cell" id="cell02"></div>
+    <div class="cell" id="cell10"></div>
+    <div class="cell" id="cell11"></div>
+    <div class="cell" id="cell12"></div>
+    <div class="cell" id="cell20"></div>
+    <div class="cell" id="cell21"></div>
+    <div class="cell" id="cell22"></div>
+  </div>
   <h2 id="infoLine"></h2>
 
   <footer>
