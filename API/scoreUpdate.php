@@ -8,8 +8,4 @@ $game = $data['game'];
 $points = $data['points'];
 
 $query = "UPDATE `scores` SET $game = $game + $points WHERE `userID` = '$userId'";
-
 $connection->query($query);
-
-echo json_encode(["success" => $success]);
-?>

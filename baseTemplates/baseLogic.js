@@ -1,31 +1,25 @@
 export async function updateScore(userId, gameName, points) {
-  const data = { userId: userId, game: gameName, points: points }; // Shorthand property names
+  const data = { userId: userId, game: gameName, points: points };
 
-  try {
-    const response = await fetch('/github repos/Aplication-Programming-Project/API/scoreUpdate.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+  const response = await fetch('/github repos/Aplication-Programming-Project/API/scoreUpdate.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
 
-    if (!response.ok) {
-      throw new Error(`Server responded with ${response.status}`);
-    }
+export async function getScore(userId, gameName) {
+  const data = { userId: userId, game: gameName, points: points };
 
-    const result = await response.json();
+  const response = await fetch('/github repos/Aplication-Programming-Project/API/getScore.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
 
-    if (!result.success) {
-      // Logic error from the server side (e.g., database down)
-      throw new Error(result.message || 'Failed to update score.');
-    }
-
-    console.log('Score updated successfully!');
-    return result; // Return data so the caller can use it
-
-  } catch (error) {
-    console.error('Error in updateScore:', error.message);
-    throw error; // Re-throw so the UI can handle the error state
-  }
+  return
 }
