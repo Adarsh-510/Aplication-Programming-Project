@@ -1,4 +1,6 @@
-let score = 0;
+import { updateScore } from "../../baseTemplates/baseLogic.js";
+const userID = "BT25CSE170";
+
 let startMove, currentMove, board, validCells;
 setBoard();
 
@@ -108,10 +110,17 @@ function endGame(gameState) {
   if (startMove == "x" && gameState != 2) scoreThisGame += 25;
   if (scoreThisGame != 0) scoreThisGame += Math.floor(Math.random() * 11) - 5;
 
+  document.getElementById('outcomeText').innerHTML = (() => {
+    switch (gameState) {
+      case 1: return "Player Wins!!";
+      case 2: return "Computer Wins..";
+      case 3: return "Its a Draw.";
+    }
+  }) ();
   document.getElementById('gameEndOverlay').style.display = 'flex';
 
-  score += scoreThisGame;
-  document.getElementById("score").innerHTML = "SCORE: " + (score);
+  updateScore(userID, 'tictactoe', scoreThisGame);
+  // document.getElementById("score").innerHTML = "SCORE: " + (score);
 }
 
 document.querySelectorAll(".cell").forEach(cell => {

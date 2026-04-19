@@ -49,11 +49,10 @@ header p {
 }
 
 footer {
-  margin: 0px 40px 40px 40px;
+  margin: 50px 40px 0px 40px;
   font-size: 14px;
   opacity: 55%;
   text-align: center;
-  padding-top: 75px;
 }
 
 @media (max-width: 700px) {

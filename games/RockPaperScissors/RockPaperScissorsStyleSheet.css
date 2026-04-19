@@ -1,3 +1,5 @@
+@import url(../../baseTemplates/baseStyleSheet.css);
+
 .gameContainer {
   background-color: #96B1C5;
   aspect-ratio: 2 / 1;

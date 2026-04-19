@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic-Tac-Toe</title>
-  <link rel="stylesheet" href="../../baseStyleSheet.css">
   <link rel="stylesheet" href="TicTacToeStyleSheet.css">
+  <script type="module" src="TicTacToeLogic.js" defer></script>
 </head>
 <body>
   <header>
     <nav>
       <a id="homeButton" href="../../index.html">🏠</a>
-      <a id="profileButton" href="#">Profile</a>
-      <a id="loginButton" href="#">Login/Signup</a>
-      <a id="leaderboardButton" href="#">Leaderboard</a>
+      <a id="profileButton" href="../../Pages/Profile/profile.html">Profile</a>
+      <a id="loginButton" href="../../Pages/Auth Pages/signin.php">SignIn/SignUp</a>
+      <a id="leaderboardButton" href="../../Pages/Leaderboard/leaderboard.html">Leaderboard</a>
     </nav>
 
     <h1>TIC-TAC-TOE</h1>
@@ -23,7 +23,7 @@
   <div id="gameEndOverlay">
     <div class="overlayBackground"></div>
     <div class="gameOutcome">
-      <h2>PLAYER WINS!!</h2>
+      <h2 id="outcomeText"></h2>
       <div>
         <div class="overlayButton" id="playAgainButton">Play again</div>
         <a class="overlayButton" href="../../index.html">Return to home</a>
@@ -45,9 +45,8 @@
   <h2 id="infoLine"></h2>
 
   <footer>
-    COPYRIGHTS RESERVED BY THE NATION OF CROATIA! DO NOT DISTRIBUTE!
+    &copy COPYRIGHTS RESERVED BY THE NATION OF CROATIA! DO NOT DISTRIBUTE!
   </footer>
 
-  <script src="TicTacToeLogic.js"></script>
 </body>
 </html>
