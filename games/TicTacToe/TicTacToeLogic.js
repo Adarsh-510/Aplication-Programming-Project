@@ -1,11 +1,14 @@
-import { updateScore } from "../../baseTemplates/baseLogic.js";
-const userID = "BT25CSE170";
+import { updateScore, getScore, getCookie } from "../../baseTemplates/baseLogic.js";
+const userID = getCookie('userID');
+const username = getCookie('username');
+const gameName = 'tictactoe';
 
-let startMove, currentMove, board, validCells;
+let startMove, currentMove, board, validCells, localScore = 0;
 setBoard();
 
-function setBoard() {
-  document.getElementById('gameEndOverlay').style.display = 'none';
+async function setBoard() {
+  if (userID) document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
+  else document.getElementById('score').innerHTML = "SCORE: " + localScore;
 
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   validCells = ["cell00", "cell01", "cell02", "cell10", "cell11", "cell12", "cell20", "cell21", "cell22"];
@@ -45,7 +48,7 @@ function nextTurnLogic() {
 }
 
 function makeRandomMove() {
-  setTimeout(function() {
+  setTimeout(function () {
     makeMove(validCells[Math.floor(Math.random() * validCells.length)]);
   }, 1250 + Math.floor(Math.random() * 501) - 250);
 }
@@ -54,23 +57,23 @@ function checkBoard() {
   let gameState = 0;
 
   let rowSum;
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++) {
     rowSum = 0;
-    for (let j = 0; j < 3; j++){
+    for (let j = 0; j < 3; j++) {
       rowSum += board[i][j];
     }
     if (rowSum == 3) return 1;
     if (rowSum == -3) return 2;
     if (rowSum == 2 || rowSum == -2)
       for (let j = 0; j < 3; j++)
-        if (board[i][j] == 0) 
+        if (board[i][j] == 0)
           gameState = "cell" + i.toString() + j.toString();
   }
 
   let colSum;
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++) {
     colSum = 0;
-    for (let j = 0; j < 3; j++){
+    for (let j = 0; j < 3; j++) {
       colSum += board[j][i];
     }
     if (colSum == 3) return 1;
@@ -82,7 +85,7 @@ function checkBoard() {
   }
 
   let leftDiagonalSum = 0, rightDiagonalSum = 0;
-  for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++) {
     leftDiagonalSum += board[i][i];
     rightDiagonalSum += board[i][2 - i];
   }
@@ -102,25 +105,32 @@ function checkBoard() {
   return gameState;
 }
 
-function endGame(gameState) {
+async function endGame(gameState) {
   currentMove = "MEOWMEOWMEOW";
   document.getElementById("infoLine").innerHTML = "";
-  var scoreThisGame = 0;
+  let scoreThisGame = 0;
   if (gameState == 1) scoreThisGame += 50;
   if (startMove == "x" && gameState != 2) scoreThisGame += 25;
   if (scoreThisGame != 0) scoreThisGame += Math.floor(Math.random() * 11) - 5;
 
-  document.getElementById('outcomeText').innerHTML = (() => {
+  document.getElementById('infoLine').innerHTML = (() => {
     switch (gameState) {
-      case 1: return "Player Wins!!";
+      case 1: return username + " Wins!!";
       case 2: return "Computer Wins..";
       case 3: return "Its a Draw.";
     }
-  }) ();
-  document.getElementById('gameEndOverlay').style.display = 'flex';
+  })();
 
-  updateScore(userID, 'tictactoe', scoreThisGame);
-  // document.getElementById("score").innerHTML = "SCORE: " + (score);
+  localScore += scoreThisGame;
+
+  if (userID) {
+    await updateScore(userID, gameName, scoreThisGame);
+    document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
+  } else {
+    document.getElementById('score').innerHTML = "SCORE: " + localScore;
+  }
+
+  setTimeout(setBoard, 1250);
 }
 
 document.querySelectorAll(".cell").forEach(cell => {
@@ -129,7 +139,7 @@ document.querySelectorAll(".cell").forEach(cell => {
       makeMove(cell.id);
     }
   };
-  
+
   cell.onmouseover = () => {
     if (validCells.includes(cell.id) && currentMove == "o") {
       cell.style.transform = "scale(1.05)";
@@ -141,5 +151,3 @@ document.querySelectorAll(".cell").forEach(cell => {
     cell.style.borderRadius = "5px";
   }
 });
-
-document.getElementById('playAgainButton').onclick = () => setBoard();

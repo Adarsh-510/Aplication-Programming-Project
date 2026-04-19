@@ -27,8 +27,8 @@
     </div>
 
     <form method="POST">
-      <label for="userId">User ID or Username</label><br>
-      <input type="text" id="userId" placeholder="BT25CSE170 / Adarsh Jain" required name="userid"><br>
+      <label for="userID">User ID or Username</label><br>
+      <input type="text" id="userID" placeholder="BT25CSE170 / Adarsh Jain" required name="userid"><br>
       <label for="password">Password</label><br>
       <input type="password" id="password" placeholder="********" required name="password"><br>
 
@@ -55,6 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if ($row['password'] == $password) {
+      setcookie("userID", $row['userID'], time() + (3 * 24 * 60 * 60), '/');
+      setcookie("username", $row['userName'], time() + (3 * 24 * 60 * 60), '/');
+      header('Location: ../Profile/profile.html');
+
       echo "Welcome back " . $row['userName'] . ".";
     } else {
       echo "Incorrect password. Try again.";

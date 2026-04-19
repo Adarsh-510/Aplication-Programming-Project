@@ -8,19 +8,23 @@ var computerChoice;
 function startGame() {
 	computerChoice = Math.floor(Math.random() * 3);
 
-	// run animation
-
-	if (playerChoice == computerChoice) updateInfoLine(0);
+	if (playerChoice == computerChoice) 					updateInfoLine(0);
 	if (playerChoice == (computerChoice + 1) % 3) updateInfoLine(1);
 	if (computerChoice == (playerChoice + 1) % 3) updateInfoLine(-1);
 
-	checkAndReset();
+	runAnimation();
+	check();
 }
 
+function runAnimation() {
+	
+}
+
+// replace by a popup in the animation
 function updateInfoLine(gameState) {
 	switch (gameState) {
 		case 0:
-			document.getElementById("infoLine").innerHTML = "Draw.";
+			document.getElementById("infoLine").innerHTML = "It's a Draw.";
 			break;
 		case 1:
 			document.getElementById("infoLine").innerHTML = "Player Wins!";
@@ -33,7 +37,8 @@ function updateInfoLine(gameState) {
 	}
 }
 
-function checkAndReset() {
+// replace by a overlay popup
+function check() {
 	if (currentPlayerScore >= scoreToWin) {
 		window.alert("Player Wins!!!");
 		currentComputerScore = 0;
@@ -44,9 +49,6 @@ function checkAndReset() {
 		currentComputerScore = 0;
 		currentPlayerScore = 0;
 	}
-
-
-	// bring back options
 }
 
 document.querySelectorAll(".options").forEach(option => {

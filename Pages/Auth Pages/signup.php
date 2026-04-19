@@ -27,8 +27,8 @@
     </div>
 
     <form method="POST">
-      <label for="userId">User ID (collage id)</label><br>
-      <input type="text" id="userId"
+      <label for="userID">User ID (collage id)</label><br>
+      <input type="text" id="userID"
              placeholder="BT25CSE170" 
              oninput="this.value = this.value.toUpperCase()"
              pattern="^BT[0-9]{2}[A-Z]{3}[0-9]{3}$"
@@ -72,6 +72,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $connection->query($query);
     $query = "INSERT INTO `scores`(`userID`) VALUES ('$userID')";
     $connection->query($query);
+
+    setcookie("userID", $userID, time() + (3 * 24 * 60 * 60), '/');
+    setcookie("username", $username, time() + (3 * 24 * 60 * 60), '/');
+    header('Location: ../Profile/profile.html');
 
     echo "Account successfully made. welcome " . $username . ".";
   }
