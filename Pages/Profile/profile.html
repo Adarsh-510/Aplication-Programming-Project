@@ -6,7 +6,7 @@
   <title>Profile</title>
 
   <link rel="stylesheet" href="./profileStyleSheet.css">
-  <script src="./profileLogic.js" defer></script>
+  <script type="module" src="./profileLogic.js" defer></script>
 </head>
 <body>
   <header>
@@ -21,16 +21,34 @@
   <div class="profileContainer">
     <div class="profileDetailsContainer">
       <img class="profilePicture" src="./defauleProfilePicture.png">
-      <p>Adarsh</p>
-      <p>BT25CSE170</p>
+      <p id="username"></p>
+      <p id="userID"></p>
+      <p id="accountCreated"></p>
+      <a id="logoutButton" href="../../index.html">LOGOUT</a>
     </div>
     <div class="gameDetailsContainer">
-      meow
+      <h1>Personal High Scores</h1>
       <div class="gameContainer">
-        <a class="gameCard"></a>
-        <a class="gameCard"></a>
-        <a class="gameCard"></a>
-        <a class="gameCard"></a>
+        <a class="gameCard">
+          <img src="../../games/TicTacToe/icons/gameIcon.png">
+          <h2>Tic-Tac-Toe</h2>
+          <p id="TTTscore">Highscore: </p>
+        </a>
+        <a class="gameCard">
+          <img src="../../games/RockPaperScissors/icons/gameIcon.png">
+          <h2>Tic-Tac-Toe</h2>
+          <p id="RPSscore">Highscore:</p>
+        </a>
+        <a class="gameCard">
+          <img src="../../games/RockPaperScissors/icons/gameIcon.png">
+          <h2>Tic-Tac-Toe</h2>
+          <p>HIGH SCORE: 10000000</p>
+        </a>
+        <a class="gameCard">
+          <img src="../../games/RockPaperScissors/icons/gameIcon.png">
+          <h2>Tic-Tac-Toe</h2>
+          <p>HIGH SCORE: 10000000</p>
+        </a>
       </div>
     </div>
   </div>

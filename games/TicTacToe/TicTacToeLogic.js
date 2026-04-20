@@ -1,4 +1,5 @@
-import { updateScore, getScore, getCookie } from "../../baseTemplates/baseLogic.js";
+import { updateScore, getScore, getCookie } from '../../globalFiles/externalLogic.js';
+
 const userID = getCookie('userID');
 const username = getCookie('username');
 const gameName = 'tictactoe';

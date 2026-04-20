@@ -62,13 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($password !== $repassword)
     die('Retyped password should be the same as password.');
 
-  $query = "SELECT * FROM users WHERE userID = '$userID' OR userName = '$username'";
+  $query = "SELECT * FROM users WHERE userID = '$userID' OR username = '$username'";
   $result = $connection->query($query);
 
   if ($result->num_rows > 0) {
     echo "User already exists";
   } else {
-    $query = "INSERT INTO `users`(`userID`, `userName`, `password`) VALUES ('$userID','$username','$password')";
+    $query = "INSERT INTO `users`(`userID`, `username`, `password`) VALUES ('$userID','$username','$password')";
     $connection->query($query);
     $query = "INSERT INTO `scores`(`userID`) VALUES ('$userID')";
     $connection->query($query);

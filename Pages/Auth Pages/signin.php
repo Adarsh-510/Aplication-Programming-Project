@@ -49,17 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $user = $_POST['userid'];
   $password = $_POST['password'];
 
-  $query = "SELECT * FROM users WHERE userID = '$user' OR userName = '$user'";
+  $query = "SELECT * FROM users WHERE userID = '$user' OR username = '$user'";
   $result = $connection->query($query);
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if ($row['password'] == $password) {
       setcookie("userID", $row['userID'], time() + (3 * 24 * 60 * 60), '/');
-      setcookie("username", $row['userName'], time() + (3 * 24 * 60 * 60), '/');
+      setcookie("username", $row['username'], time() + (3 * 24 * 60 * 60), '/');
       header('Location: ../Profile/profile.html');
 
-      echo "Welcome back " . $row['userName'] . ".";
+      echo "Welcome back " . $row['username'] . ".";
     } else {
       echo "Incorrect password. Try again.";
     }
