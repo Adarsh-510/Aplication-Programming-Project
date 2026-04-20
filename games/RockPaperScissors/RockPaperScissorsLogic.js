@@ -1,3 +1,5 @@
+import { updateScore, getScore, getCookie } from '../../globalFiles/externalLogic.js';
+
 var scoreToWin = 3;
 var currentPlayerScore = 0;
 var currentComputerScore = 0;
@@ -24,14 +26,14 @@ function runAnimation() {
 function updateInfoLine(gameState) {
 	switch (gameState) {
 		case 0:
-			document.getElementById("infoLine").innerHTML = "It's a Draw.";
+			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". It's a Draw.";
 			break;
 		case 1:
-			document.getElementById("infoLine").innerHTML = "Player Wins!";
+			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". Player Wins!";
 			currentPlayerScore++;
 			break;
 		case -1:
-			document.getElementById("infoLine").innerHTML = "Computer Wins...";
+			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". Computer Wins...";
 			currentComputerScore++;
 			break;
 	}
