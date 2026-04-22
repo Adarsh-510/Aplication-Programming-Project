@@ -1,4 +1,4 @@
-import { updateScore, getScore, getCookie } from '../../globalFiles/externalLogic.js';
+import { updateScore, getScores, getCookie } from '../../globalFiles/externalLogic.js';
 
 const userID = getCookie('userID');
 const username = getCookie('username') || 'Player';
@@ -8,7 +8,7 @@ let startMove, currentMove, board, validCells, localScore = 0;
 setBoard();
 
 async function setBoard() {
-  if (userID) document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
+  if (userID) document.getElementById('score').innerHTML = "SCORE: " + await getScores(userID)[gameName];
   else document.getElementById('score').innerHTML = "SCORE: " + localScore;
 
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
@@ -141,7 +141,7 @@ async function endGame(gameState) {
 
   if (userID) {
     await updateScore(userID, gameName, scoreThisGame);
-    document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
+    document.getElementById('score').innerHTML = "SCORE: " + await getScores(userID)[gameName];
   } else {
     document.getElementById('score').innerHTML = "SCORE: " + localScore;
   }

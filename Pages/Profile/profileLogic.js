@@ -1,21 +1,23 @@
-import { getCookie, getProfile, getScore } from '../../globalFiles/externalLogic.js'
-const games = ['tictactoe', 'rockpaperscissors'];
+import { getCookie, getProfile, getScores } from '../../globalFiles/externalLogic.js'
+const games = ['tictactoe', 'rockpaperscissors', 'matchcards', 'memorygame'];
 
 async function profileUpdate() {
   const userID = getCookie('userID');
   const username = getCookie('username');
+  const scores = await getScores(userID);
 
   if (userID) {
     let profile = await getProfile(userID);
     let dateOfCreation = profile['timeOfCreation'];
-    let TTTscore = await getScore(userID, games[0]);
-    let RPSscore = await getScore(userID, games[1]);
 
     document.getElementById('userID').innerHTML = userID;
     document.getElementById('username').innerHTML = username;
     document.getElementById('accountCreated').innerHTML = "Account created on: " + dateOfCreation;
-    document.getElementById('TTTscore').innerHTML = "Highscore: " + TTTscore;
-    document.getElementById('RPSscore').innerHTML = "Highscore: " + RPSscore;
+
+    document.getElementById('TTTscore').innerHTML = "Highscore: " + scores[games[0]];
+    document.getElementById('RPSscore').innerHTML = "Highscore: " + scores[games[1]];
+    document.getElementById('MTCscore').innerHTML = "Highscore: " + scores[games[2]];
+    document.getElementById('MGscore').innerHTML = "Highscore: " + scores[games[3]];
   } else {
     window.location = '../Auth Pages/signin.html';
   }

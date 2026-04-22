@@ -10,17 +10,17 @@ export async function updateScore(userID, gameName, points) {
   });
 }
 
-export async function getScore(userID, gameName) {
-  const data = { userID: userID, game: gameName };
+export async function getScores(userID) {
+  const data = { userID: userID };
 
-  const response = await fetch('/github repos/Aplication-Programming-Project/API/getScore.php', {
+  const response = await fetch('/github repos/Aplication-Programming-Project/API/getScores.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   });
   const result = await response.json();
 
-  return result.score;
+  return result.scores;
 }
 
 export function getCookie(name) {

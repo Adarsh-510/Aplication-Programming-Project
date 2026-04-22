@@ -35,6 +35,11 @@ header nav a {
   color: inherit;
 }
 
+header nav a img {
+  width: 25px;
+  transform: translateY(3px);
+}
+
 header h1 {
   font-size: 50px;
   font-weight: 800;
