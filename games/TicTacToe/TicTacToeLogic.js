@@ -1,7 +1,7 @@
 import { updateScore, getScore, getCookie } from '../../globalFiles/externalLogic.js';
 
 const userID = getCookie('userID');
-const username = getCookie('username');
+const username = getCookie('username') || 'Player';
 const gameName = 'tictactoe';
 
 let startMove, currentMove, board, validCells, localScore = 0;
@@ -21,6 +21,11 @@ async function setBoard() {
   startMove = (Math.floor(Math.random() * 2) == 0) ? "x" : "o";
   currentMove = startMove;
   document.getElementById("infoLine").innerHTML = (currentMove == "o") ? "CURRENT TURN: PLAYER" : "CURRENT TURN: COMPUTER";
+
+  let result = document.getElementById('result');
+  result.style.display = "none";
+  result.style.fontSize = "0px";
+  result.style.padding = "0px";
 
   if (currentMove == "x") makeRandomMove();
 }
@@ -106,22 +111,32 @@ function checkBoard() {
   return gameState;
 }
 
-async function endGame(gameState) {
-  currentMove = "MEOWMEOWMEOW";
-  document.getElementById("infoLine").innerHTML = "";
-  let scoreThisGame = 0;
-  if (gameState == 1) scoreThisGame += 50;
-  if (startMove == "x" && gameState != 2) scoreThisGame += 25;
-  if (scoreThisGame != 0) scoreThisGame += Math.floor(Math.random() * 11) - 5;
+function announceResults(gameState) {
+  let result = document.getElementById('result');
 
-  document.getElementById('infoLine').innerHTML = (() => {
+  result.innerHTML = (() => {
     switch (gameState) {
       case 1: return username + " Wins!!";
       case 2: return "Computer Wins..";
       case 3: return "Its a Draw.";
     }
   })();
+  result.style.display = "block";
+  result.style.fontSize = "40px";
+  result.style.padding = "35px";
 
+  setTimeout(setBoard, 1250);
+}
+
+async function endGame(gameState) {
+  currentMove = "MEOWMEOWMEOW";
+  document.getElementById("infoLine").innerHTML = "";
+  announceResults(gameState);
+
+  let scoreThisGame = 0;
+  if (gameState == 1) scoreThisGame += 50;
+  if (startMove == "x" && gameState != 2) scoreThisGame += 25;
+  if (scoreThisGame != 0) scoreThisGame += Math.floor(Math.random() * 11) - 5;
   localScore += scoreThisGame;
 
   if (userID) {
@@ -130,8 +145,6 @@ async function endGame(gameState) {
   } else {
     document.getElementById('score').innerHTML = "SCORE: " + localScore;
   }
-
-  setTimeout(setBoard, 1250);
 }
 
 document.querySelectorAll(".cell").forEach(cell => {
