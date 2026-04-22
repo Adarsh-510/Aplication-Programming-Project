@@ -1,7 +1,6 @@
 import { getCookie, getProfile, getScore } from '../../globalFiles/externalLogic.js'
 const games = ['tictactoe', 'rockpaperscissors'];
 
-
 async function profileUpdate() {
   const userID = getCookie('userID');
   const username = getCookie('username');
@@ -18,7 +17,7 @@ async function profileUpdate() {
     document.getElementById('TTTscore').innerHTML = "Highscore: " + TTTscore;
     document.getElementById('RPSscore').innerHTML = "Highscore: " + RPSscore;
   } else {
-    window.location = '../Auth Pages/signin.php';
+    window.location = '../Auth Pages/signin.html';
   }
 };
 
