@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $username = $_POST['username'];
   $password = $_POST['password'];
   $repassword = $_POST['repassword'];
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
   if ($password !== $repassword)
     die('Retyped password should be the same as password.');
@@ -68,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($result->num_rows > 0) {
     echo "User already exists";
   } else {
-    $query = "INSERT INTO `users`(`userID`, `username`, `password`) VALUES ('$userID','$username','$password')";
+    $query = "INSERT INTO `users`(`userID`, `username`, `password`) VALUES ('$userID','$username','$hashedPassword')";
     $connection->query($query);
     $query = "INSERT INTO `scores`(`userID`) VALUES ('$userID')";
     $connection->query($query);

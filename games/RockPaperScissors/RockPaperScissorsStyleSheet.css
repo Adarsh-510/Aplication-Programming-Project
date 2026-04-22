@@ -1,14 +1,49 @@
 @import url(../../globalFiles/baseStyleSheet.css);
 
-.gameContainer {
+#gameContainer {
   background-color: #96B1C5;
-  aspect-ratio: 2 / 1;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  
   width: 80%;
   max-width: 900px;
   border-radius: 20px;
+  aspect-ratio: 2 / 1;
+
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+#optionContainer {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#animationContainer {
+  width: 154%;
+  height: 100%;
+
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#animationContainer img {
+  width: 35%;
+  transform-origin: left center;
+}
+
+#playerchoice {
+  transform: scaleX(-1);
+  animation: bring-player 1s ease-in 1;
+  animation: shake-player 0.75s ease-in-out 3;
+}
+
+#computerchoice {
+  animation: bring-computer 1s ease-in 1;
+  animation: shake-computer 0.75s ease-in-out 3;
 }
 
 .options {
@@ -19,4 +54,28 @@
 .options:hover{
   transform: scale(1.25);
   cursor: pointer;
+}
+
+@keyframes shake-player {
+  25% {
+    transform: scaleX(-1) rotate(-20deg);
+  }
+  75% {
+    transform: scaleX(-1) rotate(20deg);
+  }
+  0%, 100% {
+    transform: scaleX(-1) rotate(0deg);
+  }
+}
+
+@keyframes shake-computer {
+  25% {
+    transform: rotate(-20deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+  0%, 100% {
+    transform: rotate(0deg);
+  }
 }

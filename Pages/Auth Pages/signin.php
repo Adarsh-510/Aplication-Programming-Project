@@ -48,13 +48,14 @@ require_once '..\..\API\db_config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $user = $_POST['userid'];
   $password = $_POST['password'];
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
   $query = "SELECT * FROM users WHERE userID = '$user' OR username = '$user'";
   $result = $connection->query($query);
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    if ($row['password'] == $password) {
+    if ($row['password'] == $hashedPassword) {
       setcookie("userID", $row['userID'], time() + (3 * 24 * 60 * 60), '/');
       setcookie("username", $row['username'], time() + (3 * 24 * 60 * 60), '/');
       header('Location: ../Profile/profile.html');
