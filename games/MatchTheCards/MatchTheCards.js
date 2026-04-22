@@ -55,10 +55,12 @@ function checkForMatch() {
     no_moves++;
 
     if (matchesFound === 8) {
-        let score = Math.floor(80 / no_moves) * 50;
+        let score = Math.floor(80 / no_moves) * 30;
         if (no_moves > 20) {
             score -= (no_moves - 20) * 10;
         }
+        var scr = document.getElementById("score");
+        scr.innerHTML = "SCORE : " + score;
         console.log("Score:", score);
     }
 }
