@@ -1,1 +1,5 @@
 @import url(../../globalFiles/baseStyleSheet.css);
+
+#sadAnnouncement {
+  padding: 300px;
+}

@@ -8,8 +8,10 @@ let startMove, currentMove, board, validCells, localScore = 0;
 setBoard();
 
 async function setBoard() {
-  if (userID) document.getElementById('score').innerHTML = "SCORE: " + await getScores(userID)[gameName];
-  else document.getElementById('score').innerHTML = "SCORE: " + localScore;
+  if (userID) {
+    let scores = await getScores(userID);
+    document.getElementById('score').innerHTML = "SCORE: " + scores[gameName];
+  } else document.getElementById('score').innerHTML = "SCORE: " + localScore;
 
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   validCells = ["cell00", "cell01", "cell02", "cell10", "cell11", "cell12", "cell20", "cell21", "cell22"];
@@ -141,7 +143,8 @@ async function endGame(gameState) {
 
   if (userID) {
     await updateScore(userID, gameName, scoreThisGame);
-    document.getElementById('score').innerHTML = "SCORE: " + await getScores(userID)[gameName];
+    let scores = await getScores(userID);
+    document.getElementById('score').innerHTML = "SCORE: " + await scores[gameName];
   } else {
     document.getElementById('score').innerHTML = "SCORE: " + localScore;
   }
