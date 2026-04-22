@@ -30,6 +30,7 @@
   align-items: center;
 }
 
+
 #animationContainer img {
   width: 35%;
   transform-origin: left center;
@@ -38,12 +39,12 @@
 #playerchoice {
   transform: scaleX(-1);
   animation: bring-player 1s ease-in 1;
-  animation: shake-player 0.75s ease-in-out 3;
+  animation: shake-player 0.5s ease-in-out 3;
 }
 
 #computerchoice {
   animation: bring-computer 1s ease-in 1;
-  animation: shake-computer 0.75s ease-in-out 3;
+  animation: shake-computer 0.5s ease-in-out 3;
 }
 
 .options {

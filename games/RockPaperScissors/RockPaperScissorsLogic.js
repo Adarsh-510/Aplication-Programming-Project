@@ -13,6 +13,7 @@ var localScore = 0;
 
 var playerChoice;
 var computerChoice;
+var scoreThisGame = 0;
 
 async function setBoard() {
 	if (userID) {
@@ -22,16 +23,19 @@ async function setBoard() {
 	}
 } setBoard();
 
-async function startGame() {
-	computerChoice = Math.floor(Math.random() * 3);
+function startGame() {
+	computerChoice = 0*Math.floor(Math.random() * 3);
 
-	await runAnimation();
-
-	if (playerChoice == computerChoice) updateInfoLine(0);
-	if (playerChoice == (computerChoice + 1) % 3) updateInfoLine(1);
-	if (computerChoice == (playerChoice + 1) % 3) updateInfoLine(-1);
-
+	runAnimation();
+	if (playerChoice === computerChoice) {
+		// draw
+	} else if (playerChoice === (computerChoice + 1) % 3) {
+		currentPlayerScore++;
+	} else {
+		currentComputerScore++;
+	}
 	check();
+	setTimeout(nextTurn, 4000);
 }
 
 function runAnimation() {
@@ -42,48 +46,34 @@ function runAnimation() {
 		document.getElementById('computerchoice').src = options[computerChoice];
 		document.getElementById('playerchoice').src = options[playerChoice];
 	});
-
-}
-
-// replace by a popup in the animation
-async function updateInfoLine(gameState) {
-	switch (gameState) {
-		case 0:
-			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". It's a Draw.";
-			break;
-		case 1:
-			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". Player Wins!";
-			currentPlayerScore++;
-			break;
-		case -1:
-			document.getElementById("infoLine").innerHTML = "Computer choose " + computerChoice + ". Computer Wins...";
-			currentComputerScore++;
-			break;
-	}
-
-	var scoreThisGame = 100;
-	localScore += scoreThisGame;
-
-	if (userID) {
-		await updateScore(userID, gameName, scoreThisGame);
-		document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
-	} else {
-		document.getElementById('score').innerHTML = "SCORE: " + localScore;
-	}
 }
 
 // replace by a overlay popup
-function check() {
+async function check() {
 	if (currentPlayerScore >= scoreToWin) {
-		window.alert("Player Wins!!!");
+		if(currentComputerScore == 0) scoreThisGame = 125;
+		else if(currentComputerScore == 1) scoreThisGame = 100;
+		else scoreThisGame = 75;
+
 		currentComputerScore = 0;
 		currentPlayerScore = 0;
+		console.log(scoreThisGame);
+		localScore += scoreThisGame;
+
+		if (userID) {
+			await updateScore(userID, gameName, scoreThisGame);
+			document.getElementById('score').innerHTML = "SCORE: " + await getScore(userID, gameName);
+		} else {
+			document.getElementById('score').innerHTML = "SCORE: " + localScore;
+		}
+		window.alert("Player Wins!");
 	}
 	if (currentComputerScore >= scoreToWin) {
 		window.alert("Computer Wins...");
 		currentComputerScore = 0;
 		currentPlayerScore = 0;
 	}
+	
 }
 
 document.querySelectorAll(".options").forEach(option => {
@@ -102,3 +92,11 @@ document.querySelectorAll(".options").forEach(option => {
 		startGame();
 	};
 });
+
+function nextTurn (){
+	document.getElementById('optionContainer').style.display = "flex";
+	document.getElementById('gameContainer').style.transform = "scale(1)";
+	document.getElementById('animationContainer').style.display = "none";
+	document.getElementById('computerchoice').src = './icons/rock1.png';
+	document.getElementById('playerchoice').src = './icons/rock1.png';	
+}
