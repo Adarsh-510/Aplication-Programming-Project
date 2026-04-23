@@ -48,3 +48,16 @@ export async function getProfile(userID) {
 
   return result.profile;
 }
+
+export async function getLeaderboard(gameName) {
+  const data = { gameName: gameName };
+
+  const response = await fetch('/github repos/Aplication-Programming-Project/API/getLeaderboard.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  const result = await response.json();
+
+  return result.scores;
+}

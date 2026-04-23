@@ -1,4 +1,3 @@
-# Aplication-Programming-Project
 Application Programming Project for IIITN CSE Sem-2
 
 FUN GAMES!
@@ -56,3 +55,5 @@ How to run:
       rockpaperscissors = FLOOR(300 + (RAND() * 401)),
       matchcards = FLOOR(300 + (RAND() * 401)),
       memorygame = FLOOR(300 + (RAND() * 401));
+
+this code makes the necessary database and tables, and adds random 

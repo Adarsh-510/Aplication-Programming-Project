@@ -7,6 +7,7 @@ if (getCookie('userID')) {
 let data;
 const signup = document.getElementById('signup');
 const signin = document.getElementById('signin');
+const error = document.getElementById('error');
 
 if(signup) signup.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -18,7 +19,7 @@ if(signup) signup.addEventListener('submit', (event) => {
   console.log(userID + ' ' + username + ' ' + password);
 
   if (password != repassword) {
-    window.alert('password do not match.');
+    error.innerHTML = 'Re-entered password should match the password.'
     return;
   }
 
@@ -51,7 +52,7 @@ async function sendFetch() {
 
   let result = await response.json();
   let status = result.status;
-  window.alert(status);
+  error.innerHTML = status;
 
   if (getCookie('userID')) {
     window.location = '../Profile/profile.html';

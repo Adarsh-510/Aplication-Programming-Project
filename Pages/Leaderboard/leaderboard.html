@@ -6,7 +6,7 @@
   <title>Leaderboard</title>
 
   <link rel="stylesheet" href="./leaderboardStyleSheet.css">
-  <script src="./leaderboardLogic.js" defer></script>
+  <script type="module" src="./leaderboardLogic.js" defer></script>
   <script type="module" src="../../globalFiles/baseLogic.js" defer></script>
 </head>
 <body>
@@ -22,7 +22,17 @@
     <p>Realtime Leaderboards.</p>
   </header>
 
-  <p id="sadAnnouncement">Leaderboards coming soon!!!</p>
+  <table id="leaderboardDisplay">
+    <tr>
+      <th>Rank</th>
+      <th>Username</th>
+      <th><a href="#0">Tic-Tac-Toe</a></th>
+      <th><a href="#1">Rock Paper Scissors</a></th>
+      <th><a href="#2">Match the Cards</a></th>
+      <th><a href="#3">Memory Game</a></th>
+      <th><a href="#4">Total</a></th>
+    </tr>
+  </table>
 
   <footer>
     &copy COPYRIGHTS RESERVED BY THE NATION OF CROATIA! DO NOT DISTRIBUTE!

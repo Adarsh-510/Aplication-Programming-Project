@@ -26,14 +26,6 @@ let localScore;
 let scoreThisGame;
 
 async function setBoard() {
-  if (userID) {
-    let scores = await getScores(userID);
-    document.getElementById('score').innerHTML = "SCORE: " + scores[gameName];
-  } else document.getElementById('score').innerHTML = "SCORE: " + localScore;
-
-  cardValues = [...images, ...images];
-  cardValues.sort(() => Math.random() - 0.5);
-
   firstCard = null;
   secondCard = null;
   lockBoard = false;
@@ -41,6 +33,14 @@ async function setBoard() {
   movesCount = 0;
   localScore = 0;
   scoreThisGame = 0;
+
+  if (userID) {
+    let scores = await getScores(userID);
+    document.getElementById('score').innerHTML = "SCORE: " + scores[gameName];
+  } else document.getElementById('score').innerHTML = "SCORE: " + localScore;
+
+  cardValues = [...images, ...images];
+  cardValues.sort(() => Math.random() - 0.5);
 
   cards.forEach((card, i) => {
     card.dataset.value = cardValues[i];
