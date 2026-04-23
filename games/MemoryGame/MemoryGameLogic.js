@@ -76,4 +76,4 @@ function checkit(index) {
     return true;
 }
 
-setTimeout(startGame, 3000);
+setTimeout(startGame, 2000);
