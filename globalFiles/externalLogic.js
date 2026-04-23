@@ -1,7 +1,7 @@
 export async function updateScore(userID, gameName, points) {
   const data = { userID: userID, game: gameName, points: points };
 
-  const response = await fetch('/github repos/Aplication-Programming-Project/API/scoreUpdate.php', {
+  const response = await fetch('../API/scoreUpdate.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ export async function updateScore(userID, gameName, points) {
 export async function getScores(userID) {
   const data = { userID: userID };
 
-  const response = await fetch('/github repos/Aplication-Programming-Project/API/getScores.php', {
+  const response = await fetch('../API/getScores.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -39,7 +39,7 @@ export function getCookie(name) {
 export async function getProfile(userID) {
   const data = { userID: userID };
 
-  const response = await fetch('/github repos/Aplication-Programming-Project/API/getProfile.php', {
+  const response = await fetch('../API/getProfile.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -52,7 +52,7 @@ export async function getProfile(userID) {
 export async function getLeaderboard(gameName) {
   const data = { gameName: gameName };
 
-  const response = await fetch('/github repos/Aplication-Programming-Project/API/getLeaderboard.php', {
+  const response = await fetch('../API/getLeaderboard.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
